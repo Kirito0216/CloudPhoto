@@ -1,0 +1,12 @@
+spring:
+  application:
+    name: cloud-photo-audit
+  profiles:
+    active: dev
+  cloud:
+    nacos:
+      server-addr: 127.0.0.1:8848
+      username: nacos
+      password: nacos
+
+

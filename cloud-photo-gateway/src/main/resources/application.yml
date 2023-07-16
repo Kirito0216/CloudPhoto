@@ -1,0 +1,61 @@
+spring:
+  main:
+    web-application-type: reactive
+  redis:
+    host: 127.0.0.1
+    port: 6379
+  datasource:
+    url: jdbc:mysql://127.0.0.1:3306/cloud-photo?zeroDateTimeBehavior=convertToNull&?useSSL=false&allowMultiQueries=true
+    username: root
+    password: root
+    driver-class-name: com.mysql.jdbc.Driver
+
+  cloud:
+    # nacos config
+    nacos:
+      discovery:
+        username: nacos
+        password: nacos
+        server-addr: 127.0.0.1:8848
+        group: OUGE-GATEWAY
+        namespace: c4eaa9f5-b192-4a22-8e3b-e1261d27ca62
+      config:
+        file-extension: yml
+    # 网关 config
+    gateway:
+#      路由
+      routes:
+        #        高优先级路由放前面
+        - id: api_route
+#          负载均衡：cloud-photo-api：这个路由它最终是去掉那个服务
+          uri: http://127.0.0.1:9011
+#          断言：Path=/api/** 如果你发送的请求带有/api/前缀 -> cloud-photo-api
+          predicates:
+            - Path=/api/**
+#          过滤器：RewritePath：路径重写：localhost:88/api/getUserInfo --> localhost:9009/getUserInfo
+          filters:
+             - RewritePath=/api/(?<segment>/?.*), /$\{segment}
+        - id: user-route
+          uri: http://127.0.0.1:9007
+            # 断言：Path=/api/** 如果你发送的请求带有/api/前缀 -> cloud-photo-api
+          predicates:
+              - Path=/user/**
+        - id: audit_route
+#          负载均衡：cloud-photo-audit
+          uri: http://127.0.0.1:9001
+#          断言：/audit/
+          predicates:
+            - Path=/audit/**
+#          过滤器：
+          filters:
+            - RewritePath=/audit/(?<segment>/?.*), /$\{segment}
+    loadbalancer:
+      ribbon:
+        enabled: false
+
+  # name
+  application:
+    name: cloud-photo-gateway
+
+server:
+  port: 88

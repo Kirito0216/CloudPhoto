@@ -1,0 +1,65 @@
+spring:
+  cloud:
+    # nacos config
+    nacos:
+      discovery:
+        username: nacos
+        password: nacos
+        server-addr: 127.0.0.1:8848
+        group: OUGE-AUDIT
+        namespace: c4eaa9f5-b192-4a22-8e3b-e1261d27ca62
+      config:
+        file-extension: yml
+  redis:
+    host: 127.0.0.1
+    port: 6379
+  application:
+    name: cloud-photo-audit
+  datasource:
+    url: jdbc:mysql://127.0.0.1:3306/cloud-photo?zeroDateTimeBehavior=convertToNull&?useSSL=false&allowMultiQueries=true
+    username: root
+    password: root
+    driver-class-name: com.mysql.jdbc.Driver
+
+  kafka:
+    bootstrap-servers: 127.0.0.1:9092
+    consumer:
+      auto:
+        commit:
+          interval:
+            ms: 1000
+      auto-offset-reset: latest
+      enable-auto-commit: true
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      max-poll-records: 20
+      properties:
+        group:
+          id: defaultConsumerGroup
+        request:
+          timeout:
+            ms: 180000
+        session:
+          timeout:
+            ms: 120000
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+    listener:
+      missing-topics-fatal: false
+    producer:
+      acks: 1
+      batch-size: 16384
+      buffer-memory: 33554432
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      properties:
+        linger:
+          ms: 0
+      retries: 0
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+#服务端口
+server:
+  port: 9001
+
+#mybatis-plus
+mybatis-plus:
+  configuration:
+    map-underscore-to-camel-case: true
+  mapper-locations: classpath*:/mapper/**/*.xml
