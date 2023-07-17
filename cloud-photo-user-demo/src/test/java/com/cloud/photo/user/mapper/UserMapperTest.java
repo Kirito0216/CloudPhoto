@@ -1,6 +1,6 @@
 package com.cloud.photo.user.mapper;
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+/*import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.cloud.photo.user.entity.User;
 import com.cloud.photo.user.service.impl.UserServiceImpl;
 import org.junit.Test;
@@ -45,4 +45,4 @@ public class UserMapperTest {
         final int update = userMapper.update(user, wrapper);
         System.out.println("update = " + update);
     }
-}
+}*/

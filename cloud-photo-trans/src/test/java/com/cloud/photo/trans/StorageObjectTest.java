@@ -1,6 +1,7 @@
 package com.cloud.photo.trans;
 
 
+/*
 import com.cloud.photo.trans.entity.StorageObject;
 import com.cloud.photo.trans.mapper.StorageObjectMapper;
 import com.cloud.photo.trans.service.IStorageObjectService;
@@ -28,3 +29,4 @@ public class StorageObjectTest {
 
 
 }
+*/

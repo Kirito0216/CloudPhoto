@@ -107,7 +107,7 @@ public class UserFileController {
 
             //通过存储id更新审核状态
             if (StrUtil.isNotBlank(userFile.getStorageObjectId())){
-                updateWrapper.eq("storage_object_id",userFile.getUserFileId());
+                updateWrapper.eq("storage_object_id",userFile.getStorageObjectId());
             }
             updateWrapper.set("audit_status",userFile.getAuditStatus());
             iUserFileService.update(updateWrapper);

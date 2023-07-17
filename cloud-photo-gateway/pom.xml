@@ -31,8 +31,8 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <version>${spring-boot.version}</version>
                 <configuration>
-                    <mainClass>com.cloud.photo.gateway.CloudPhotoGatewayApplication</mainClass>
-                    <skip>true</skip>
+                    <mainClass>com.cloud.photo.GatewayApplication</mainClass>
+                    <!--<skip>true</skip>-->
                 </configuration>
                 <executions>
                     <execution>

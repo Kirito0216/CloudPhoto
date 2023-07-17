@@ -68,6 +68,11 @@ public class FileResizeIconServiceImpl extends ServiceImpl<FileResizeIconMapper,
             this.imageThumbnailSave(iconCode,suffixName,srcFileName,storageObjectId,fileName);*/
             imageThumbnailAndMediaInfo(storageObjectId,fileName);
         }else {
+            //如果缩略图存在，看审核是否通过，通过正常返回；不通过就返回审核不通过的图片
+            if(CommonConstant.FILE_AUDIT_FAIL.equals(userFile.getAuditStatus())){
+                System.out.println("审核不通过");
+                return getAuditFailIconUrl();
+            }
             objectId = fileResizeIcon.getObjectId();
             containerId = fileResizeIcon.getContainerId();
         }
@@ -217,7 +222,6 @@ public class FileResizeIconServiceImpl extends ServiceImpl<FileResizeIconMapper,
 
 
     public String getAuditFailIconUrl() {
-
         //查询默认图是否存在存储池  不存在 上传到存储池
         String iconStorageObjectId = CommonConstant.ICON_STORAGE_OBJECT_ID;
         StorageObjectBo iconStorageObject = cloudPhotoTransService.getStorageObjectById(iconStorageObjectId);
